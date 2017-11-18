@@ -17,7 +17,17 @@ class Question{
   constructor(content){
     this.content = content
   }
-
+  
+  insert() {
+    const self = this
+    return new Promise(function(resolve) {
+      const sql = `INSERT INTO questions (content) VALUES (?)`
+      db.run(sql, [self.content], function(err, result) {
+        self.id = this.lastID
+        resolve(self)
+      })
+    })
+  }
 }
 
 module.exports = Question;
