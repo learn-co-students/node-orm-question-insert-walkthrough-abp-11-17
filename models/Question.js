@@ -7,10 +7,10 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
-      })      
+      })
     })
   }
 
@@ -18,6 +18,22 @@ class Question{
     this.content = content
   }
 
+  insert() {
+    var self = this
+    const sql = `INSERT INTO questions (content) VALUES (?)`
+    return new Promise(function(resolve) {
+      db.run(sql, [self.content], function (err, result){
+        self.id = this.lastID
+        resolve (self)
+      })
+    //     self.id = this.id
+
+    })
+    //   })
+    // })
+  }
 }
+
+
 
 module.exports = Question;
