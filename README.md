@@ -14,9 +14,9 @@
 
 In `models/Question.js` there is an ORM `Question` class that implements migration method for its SCHEMA `.CreateTable()` and a `constructor` that defines a `content` property for instances.
 
-The goal is to build an instance function `insert()` that can execute the necessary SQL to insert a quesion's content based on an instance of the class `Question` into a `questions` table in our database. 
+The goal is to build an instance function `insert()` that can execute the necessary SQL to insert a quesion's content based on an instance of the class `Question` into a `questions` table in our database.
 
-In order to function properly, the database execution must be wrapped in a `Promise` that resolves. 
+In order to function properly, the database execution must be wrapped in a `Promise` that resolves.
 
 Maintain access to the instance of the question by casting it into a variable `self` early in the `insert()` function. Because this function will have multiple callbacks, the scope of `this` will change and this is the most elegant solution.
 
@@ -45,7 +45,7 @@ class Question{
       id INTEGER PRIMARY KEY,
       content TEXT
     )`
-    
+
     db.run(sql, function(){
       resolve("questions table created")
     })      
@@ -74,7 +74,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
@@ -86,6 +86,9 @@ class Question{
   }
 
   insert(){
+    return new Promise(function(resolve) {
+      resolve("test")
+    })
 
   }
 }
@@ -133,7 +136,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
@@ -187,7 +190,7 @@ While we are now returning a promise, there is no logic to actually insert the r
 Let's first just write out the SQL, with sanitiation replacements, for our `INSERT`.
 
 ```sql
-INSERT INTO questions (content) VALUES (?) 
+INSERT INTO questions (content) VALUES (?)
 ```
 
 The `?` represents the future value for the questions content, but we don't want to directly inject that into the SQL statement string as we will let the DB driver sanitize it.
@@ -205,7 +208,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
@@ -281,7 +284,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
@@ -348,7 +351,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
@@ -417,7 +420,7 @@ class Question{
         id INTEGER PRIMARY KEY,
         content TEXT
       )`
-      
+
       db.run(sql, function(){
         resolve("questions table created")
       })      
