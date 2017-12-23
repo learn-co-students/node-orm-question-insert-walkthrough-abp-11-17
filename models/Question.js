@@ -15,7 +15,7 @@ class Question{
   }
 
   constructor(content){
-    this.content = self.content
+    this.content = content
   }
 
   insert(){
@@ -23,7 +23,8 @@ class Question{
     const sql = `INSERT INTO questions (content) VALUES (?)`
     return new Promise(function(resolve){
       db.run(sql, [self.content], function(err, result){
-        resolve("Row inserted!")
+        self.id = this.lastID
+        resolve(self)
       })
     })
   }
